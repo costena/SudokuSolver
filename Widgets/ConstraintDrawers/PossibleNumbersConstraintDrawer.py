@@ -2,6 +2,7 @@ from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QPainter, QFont
 
 from Constraints.PossibleNumbersConstraint import PossibleNumbersConstraint
+from Constraints.Shapes.SinglePosition import SinglePosition
 from Widgets.ConstraintDrawers import register_constraint_drawer
 from Widgets.ConstraintDrawers.ConstraintDrawer import ConstraintDrawer
 
@@ -10,8 +11,9 @@ from Widgets.ConstraintDrawers.ConstraintDrawer import ConstraintDrawer
 class PossibleNumbersConstraintDrawer(ConstraintDrawer):
 	def paint(self, painter: QPainter, rect: QRect):
 		assert isinstance(self.constraint, PossibleNumbersConstraint)
-		x = rect.x() + rect.width() * self.constraint.x // 9
-		y = rect.y() + rect.height() * self.constraint.y // 9
+		assert isinstance(self.constraint.shape, SinglePosition)
+		x = rect.x() + rect.width() * self.constraint.shape.x // 9
+		y = rect.y() + rect.height() * self.constraint.shape.y // 9
 		w = rect.width() // 9
 		h = rect.height() // 9
 		fw = rect.width() * 2 // 3 // 9

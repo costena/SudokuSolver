@@ -3,7 +3,7 @@ from Constraints.Constraint import Constraint
 
 class MutexConstraint(Constraint):
 	def __repr__(self):
-		return f"<MutexConstraint()>"
+		return f"<MutexConstraint(shape={self.shape})>"
 	
 	def active(self, sudoku: 'Sudoku') -> bool:
 		return True

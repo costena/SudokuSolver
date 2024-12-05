@@ -2,6 +2,7 @@ from PyQt5.QtCore import QRect, Qt
 from PyQt5.QtGui import QPainter, QPen
 
 from Constraints.RowConstraint import RowConstraint
+from Constraints.Shapes.Rectangle import Rectangle
 from Widgets.ConstraintDrawers import register_constraint_drawer
 from Widgets.ConstraintDrawers.ConstraintDrawer import ConstraintDrawer
 
@@ -10,10 +11,11 @@ from Widgets.ConstraintDrawers.ConstraintDrawer import ConstraintDrawer
 class RowConstraintDrawer(ConstraintDrawer):
 	def paint(self, painter: QPainter, rect: QRect):
 		assert isinstance(self.constraint, RowConstraint)
+		assert isinstance(self.constraint.shape, Rectangle)
 		x = rect.x()
-		y = rect.y() + rect.height() * self.constraint.y // 9
+		y = rect.y() + rect.height() * self.constraint.shape.y // 9
 		w = rect.width()
-		h = rect.height() * (self.constraint.y + 1) // 9 - y + rect.y()
+		h = rect.height() * (self.constraint.shape.y + 1) // 9 - y + rect.y()
 		painter.save()
 		painter.setPen(QPen(Qt.GlobalColor.black, 1))
 		painter.setBrush(Qt.BrushStyle.NoBrush)
