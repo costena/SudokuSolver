@@ -12,4 +12,5 @@ class NumberConstraint(Constraint):
 
 	def active(self, sudoku: 'Sudoku'):
 		assert isinstance(self.shape, SinglePosition)
+		sudoku.context_constraint = self
 		return sudoku.fill(self.shape.x, self.shape.y, self.number)

@@ -10,3 +10,6 @@ class ConstraintDrawer(object):
 	
 	def paint(self, painter: QPainter, rect: QRect):
 		pass
+
+	def special_paint(self, painter: QPainter, rect: QRect):
+		pass

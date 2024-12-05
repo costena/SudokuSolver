@@ -21,3 +21,16 @@ class RowConstraintDrawer(ConstraintDrawer):
 		painter.setBrush(Qt.BrushStyle.NoBrush)
 		painter.drawRect(x, y, w, h)
 		painter.restore()
+
+	def special_paint(self, painter: QPainter, rect: QRect):
+		assert isinstance(self.constraint, RowConstraint)
+		assert isinstance(self.constraint.shape, Rectangle)
+		x = rect.x()
+		y = rect.y() + rect.height() * self.constraint.shape.y // 9
+		w = rect.width()
+		h = rect.height() * (self.constraint.shape.y + 1) // 9 - y + rect.y()
+		painter.save()
+		painter.setPen(QPen(Qt.GlobalColor.blue, 1))
+		painter.setBrush(Qt.BrushStyle.NoBrush)
+		painter.drawRect(x, y, w, h)
+		painter.restore()

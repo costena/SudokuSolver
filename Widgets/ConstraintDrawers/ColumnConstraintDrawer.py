@@ -21,3 +21,16 @@ class ColumnConstraintDrawer(ConstraintDrawer):
 		painter.setBrush(Qt.BrushStyle.NoBrush)
 		painter.drawRect(x, y, w, h)
 		painter.restore()
+
+	def special_paint(self, painter: QPainter, rect: QRect):
+		assert isinstance(self.constraint, ColumnConstraint)
+		assert isinstance(self.constraint.shape, Rectangle)
+		x = rect.x() + rect.width() * self.constraint.shape.x // 9
+		y = rect.y()
+		w = rect.width() * (self.constraint.shape.x + 1) // 9 - x + rect.x()
+		h = rect.height()
+		painter.save()
+		painter.setPen(QPen(Qt.GlobalColor.blue, 1))
+		painter.setBrush(Qt.BrushStyle.NoBrush)
+		painter.drawRect(x, y, w, h)
+		painter.restore()

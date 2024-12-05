@@ -20,3 +20,5 @@ from . import ColumnConstraintDrawer
 from . import BlockConstraintDrawer
 from . import PossibleNumbersConstraintDrawer
 from . import NumberConstraintDrawer
+from . import SummationConstraintDrawer
+from . import MinimumDifferConstraint

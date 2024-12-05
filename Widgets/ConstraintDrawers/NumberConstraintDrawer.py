@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QRect
-from PyQt5.QtGui import QPainter, QFont
+from PyQt5.QtCore import QRect, Qt
+from PyQt5.QtGui import QPainter, QFont, QPen
 
 from Constraints.NumberConstraint import NumberConstraint
 from Constraints.Shapes.SinglePosition import SinglePosition
@@ -20,9 +20,28 @@ class NumberConstraintDrawer(ConstraintDrawer):
 		fh = rect.height() * 3 // 4 // 9
 		fx = x + (w - fw) * 3 // 4
 		fy = y + (h - fh) * 2 // 3
-		fs = fh
+		fs = fh * 2 // 3
 		f = QFont("", fs)
 		painter.save()
+		painter.setFont(f)
+		painter.drawText(fx, fy + fh, f"{self.constraint.number}")
+		painter.restore()
+
+	def special_paint(self, painter: QPainter, rect: QRect):
+		assert isinstance(self.constraint, NumberConstraint)
+		assert isinstance(self.constraint.shape, SinglePosition)
+		x = rect.x() + rect.width() * self.constraint.shape.x // 9
+		y = rect.y() + rect.height() * self.constraint.shape.y // 9
+		w = rect.width() // 9
+		h = rect.height() // 9
+		fw = rect.width() * 2 // 3 // 9
+		fh = rect.height() * 3 // 4 // 9
+		fx = x + (w - fw) * 3 // 4
+		fy = y + (h - fh) * 2 // 3
+		fs = fh * 2 // 3
+		f = QFont("", fs)
+		painter.save()
+		painter.setPen(QPen(Qt.GlobalColor.blue))
 		painter.setFont(f)
 		painter.drawText(fx, fy + fh, f"{self.constraint.number}")
 		painter.restore()
