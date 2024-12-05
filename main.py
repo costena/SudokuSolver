@@ -5,6 +5,7 @@ from threading import Thread
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QPushButton
 
+from Sudokus.KillerSudoku import KillerSudoku
 from Sudokus.Sudoku import Sudoku
 from Sudokus.StandardSudoku import StandardSudoku
 from Sudokus.TigerSudoku import TigerSudoku
@@ -26,6 +27,7 @@ def wait_for_next():
 
 def main():
 	sudoku = createSudoku()
+	# print(sudoku.solve())
 
 	sudoku.step_callback = wait_for_next
 
@@ -57,17 +59,17 @@ def main():
 
 
 def createSudoku() -> Sudoku:
-	raw_conundrum = [
-		"5..2...4.",
-		"...6.3...",
-		".3...9..7",
-		"..3..7...",
-		"..7..8...",
-		"6......2.",
-		".8......3",
-		"...4..6..",
-		"...1..5..",
-	]
+	# raw_conundrum = [
+	# 	"5..2...4.",
+	# 	"...6.3...",
+	# 	".3...9..7",
+	# 	"..3..7...",
+	# 	"..7..8...",
+	# 	"6......2.",
+	# 	".8......3",
+	# 	"...4..6..",
+	# 	"...1..5..",
+	# ]
 	# return StandardSudoku([
 	# 	[
 	# 		int(raw_number) if raw_number != '.' else None
@@ -76,7 +78,25 @@ def createSudoku() -> Sudoku:
 	# 	for raw_row in raw_conundrum
 	# ])
 
-	return TigerSudoku([])
+	# return TigerSudoku([])
+
+	return KillerSudoku([
+		# [
+		# 	int(raw_number) if raw_number != '.' else None
+		# 	for raw_number in raw_row
+		# ]
+		# for raw_row in [
+		# 	"86......2",
+		# 	"..3.2..68",
+		# 	"..4....9.",
+		# 	"....64...",
+		# 	".125....4",
+		# 	"749..2..5",
+		# 	".3.8.19..",
+		# 	"..6....51",
+		# 	"98.2....3",
+		# ]
+	])
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+from typing import Union
 import itertools
 
 from Constraints.Constraint import Constraint
@@ -6,36 +7,39 @@ from Constraints.Shapes.Shape import Shape
 from Constraints.Shapes.SinglePosition import SinglePosition
 
 
-class SummationConstraint(Constraint):
-	def __init__(self, x: int, y: int, w: int, h: int, summation: int):
-		super(SummationConstraint, self).__init__(Rectangle(x, y, w, h))
+class KillerCageConstraint(Constraint):
+	def __init__(self, x_or_shape: Union[int, Shape], y_or_summation: int, w: int=0, h: int=0, summation: int=0):
+		if isinstance(x_or_shape, int):
+			x = x_or_shape
+			y = y_or_summation
+			super(KillerCageConstraint, self).__init__(Rectangle(x, y, w, h))
+		elif isinstance(x_or_shape, Shape):
+			shape = x_or_shape
+			summation = y_or_summation
+			super(KillerCageConstraint, self).__init__(shape)
 		self.summation: int = summation
 	
 	def __repr__(self):
-		return f"<SummationConstraint(shape={self.shape}, summation={self.summation})>"
+		return f"<KillerCageConstraint(shape={self.shape}, summation={self.summation})>"
 	
 	def active(self, sudoku: 'Sudoku') -> bool:
-		assert isinstance(self.shape, Rectangle)
-		if self.shape.w == self.shape.h == 1:
+		positions = list(self.shape.iter_positions())
+		cell_count: int = len(positions)
+		if cell_count == 1:
+			position = positions[0]
 			sudoku.context_constraint = self
-			return sudoku.fill(self.shape.x, self.shape.y, self.summation)
-		cell_count: int = self.shape.w * self.shape.h
-		min_number: int = max(1, self.summation - (cell_count - 1) * 9)
-		max_number: int = min(9, self.summation - (cell_count - 1))
-		for number in itertools.chain(range(1, min_number), range(max_number + 1, 10)):
-			# print(f"eliminate: {self}, {self.shape.x}, {self.shape.y}, {number}")
-			sudoku.context_constraint = self
-			if not sudoku.eliminate(self.shape.x, self.shape.y, number):
-				return False
+			return sudoku.fill(position[0], position[1], self.summation)
+		for x, y in self.shape.iter_positions():
+			return self.check(x, y, sudoku)
 		return True
 	
 	def on_number_filled(self, x: int, y: int, number: int, sudoku: 'Sudoku') -> bool:
-		return self.check(x, y, number, sudoku)
+		return self.check(x, y, sudoku)
 
 	def on_number_eliminated(self, x: int, y: int, number: int, sudoku: 'Sudoku') -> bool:
-		return self.check(x, y, number, sudoku)
+		return self.check(x, y, sudoku)
 
-	def check(self, x: int, y: int, number: int, sudoku: 'Sudoku') -> bool:
+	def check(self, x: int, y: int, sudoku: 'Sudoku') -> bool:
 		if not self.shape.contains_position(x, y):
 			return True
 		min_summation = 0
