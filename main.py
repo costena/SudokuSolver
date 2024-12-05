@@ -10,7 +10,7 @@ from Widgets.SudokuWidget import SudokuWidget
 
 def main():
 	sudoku = createSudoku()
-	assert sudoku.solve()
+	# assert sudoku.solve()
 	
 	app = QApplication(sys.argv)
 	window = QWidget()
@@ -18,10 +18,9 @@ def main():
 	raw_sudoku_widget = SudokuWidget()
 	raw_sudoku_widget.setSudoku(sudoku)
 	layout.addWidget(raw_sudoku_widget)
-	solved_sudoku_widget = SolvedSudokuWidget()
-	solved_sudoku_widget.setSudoku(sudoku)
-	layout.addWidget(solved_sudoku_widget)
-	layout.addWidget(solved_sudoku_widget)
+	# solved_sudoku_widget = SolvedSudokuWidget()
+	# solved_sudoku_widget.setSudoku(sudoku)
+	# layout.addWidget(solved_sudoku_widget)
 	window.setLayout(layout)
 	window.show()
 	app.exec()

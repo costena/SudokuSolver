@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, List
+from typing import Iterable, Optional
 
 from Constraints.BlockConstraint import BlockConstraint
 from Constraints.ColumnConstraint import ColumnConstraint
