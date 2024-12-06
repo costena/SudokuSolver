@@ -84,7 +84,8 @@ class Sudoku(object):
 		possible_numbers.remove(number)
 		self.context_position_number = (x, y, number)
 		if self.step_callback:
-			self.step_callback()
+			if not self.step_callback():
+				return False
 		if len(possible_numbers) == 1:
 			for constraint in self.constraints:
 				if not constraint.on_number_filled(x, y, self.get_number(x, y), self):

@@ -21,7 +21,7 @@ class SolvedSudokuWidget(SudokuWidget):
 					fh = rect.height() * 3 // 4 // 9
 					fx = x + (w - fw) * 3 // 4
 					fy = y + (h - fh) * 2 // 3
-					fs = fh * 2 // 3
+					fs = fh
 					f = QFont("", fs)
 					painter.save()
 					painter.setFont(f)
