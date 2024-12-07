@@ -1,15 +1,17 @@
 from typing import Optional, Callable
 
-from Constraints.BlockConstraint import BlockConstraint
-from Constraints.ColumnConstraint import ColumnConstraint
+from Constraints.BlockConstraint import BlockConstraintFull
+from Constraints.ColumnConstraint import ColumnConstraintFull
+from Constraints.ContinuousConstraint import ContinuousConstraint
 from Constraints.DiagonalConstraint import DiagonalConstraint
 from Constraints.GermanWhispersLineConstraint import GermanWhispersLineConstraint
 from Constraints.KillerCageConstraint import KillerCageConstraint
-from Constraints.MutexConstraint import MutexConstraint
+from Constraints.FullMutexConstraint import FullMutexConstraint
 from Constraints.NumberConstraint import NumberConstraint
 from Constraints.PossibleNumbersConstraint import PossibleNumbersConstraint
-from Constraints.RowConstraint import RowConstraint
+from Constraints.RowConstraint import RowConstraintFull
 from Constraints.WindowBlockConstraint import WindowBlockConstraint
+from .ContinuousConstraintDrawer import ContinuousConstraintDrawer
 from .DiagonalConstraintDrawer import DiagonalConstraintDrawer
 from .RectangleConstraintDrawer import RectangleConstraintDrawer
 from .BlockConstraintDrawer import BlockConstraintDrawer
@@ -20,17 +22,19 @@ from .GermanWhispersLineConstraintDrawer import GermanWhispersLineConstraintDraw
 from .MutexConstraintDrawer import MutexConstraintDrawer
 from .WindowBlockConstraintDrawer import WindowBlockConstraintDrawer
 
+
 ConstraintDrawers = {
-	ColumnConstraint: RectangleConstraintDrawer,
-	RowConstraint: RectangleConstraintDrawer,
-	BlockConstraint: BlockConstraintDrawer,
+	ColumnConstraintFull: RectangleConstraintDrawer,
+	RowConstraintFull: RectangleConstraintDrawer,
+	BlockConstraintFull: BlockConstraintDrawer,
 	PossibleNumbersConstraint: PossibleNumbersConstraintDrawer,
 	NumberConstraint: NumberConstraintDrawer,
 	KillerCageConstraint: KillerCageConstraintDrawer,
 	GermanWhispersLineConstraint: GermanWhispersLineConstraintDrawer,
-	MutexConstraint: MutexConstraintDrawer,
+	FullMutexConstraint: MutexConstraintDrawer,
 	DiagonalConstraint: DiagonalConstraintDrawer,
 	WindowBlockConstraint: WindowBlockConstraintDrawer,
+	ContinuousConstraint: ContinuousConstraintDrawer,
 }
 
 

@@ -1,9 +1,9 @@
-from Constraints.MutexConstraint import MutexConstraint
+from Constraints.FullMutexConstraint import FullMutexConstraint
 from Constraints.Shapes.SinglePosition import SinglePosition
 from Constraints.Shapes.UnionShape import UnionShape
 
 
-class DiagonalConstraint(MutexConstraint):
+class DiagonalConstraint(FullMutexConstraint):
     def __init__(self, is_bottom_left_to_top_right: bool):
         if is_bottom_left_to_top_right:
             shape = UnionShape([

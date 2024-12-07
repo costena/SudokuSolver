@@ -1,6 +1,7 @@
 from typing import Iterable, List, Dict, Tuple
 
-from Types import PointType
+from Consts import Down, Right
+from Types import PointType, DirectionType
 
 
 def translate_face(face_texts: Iterable[str]):
@@ -84,11 +85,6 @@ def translate_blocks(block_texts: Iterable[str]) -> List[BlockType]:
                 block_map[link_position] = block
                 process_links(link_position, block)
 
-    def set_block(position: PointType, block: BlockType) -> None:
-        blocks.append(block)
-        block_map[(x, y)] = block
-        process_links((x, y), block)
-
     for y, block_text in enumerate(block_texts):
         x: int = 0
         for block_char in block_text:
@@ -114,3 +110,22 @@ def translate_blocks(block_texts: Iterable[str]) -> List[BlockType]:
                     links.setdefault((x, y + 1), []).append((x, y))
             x += 1
     return blocks
+
+BezelType = Tuple[PointType, DirectionType]
+
+def translate_bezel(bezel_texts: Iterable[str]) -> List[BezelType]:
+    bezels: List[BezelType] = []
+    if bezel_texts is None:
+        return bezels
+    for y, bezel_text in enumerate(bezel_texts):
+        x: int = 0
+        for bezel_char in bezel_text:
+            match bezel_char:
+                case '.':
+                    x += 1
+                case '_':
+                    bezels.append(((x, y), Down))
+                    x += 1
+                case '|':
+                    bezels.append(((x - 1, y), Right))
+    return bezels
