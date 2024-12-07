@@ -8,7 +8,7 @@ class SinglePosition(Shape):
 		self.y: int = y
 	
 	def __repr__(self):
-		return f"<SingleCell(x={self.x}, y={self.y})>"
+		return f"<SinglePosition(x={self.x}, y={self.y})>"
 
 	def iter_positions(self):
 		yield self.x, self.y

@@ -6,8 +6,8 @@ from Sudokus.StandardSudoku import StandardSudoku
 
 
 class TigerSudoku(StandardSudoku):
-	def initConstraints(self, conundrum: Iterable[Iterable[Optional[int]]]):
-		super(TigerSudoku, self).initConstraints(conundrum)
+	def initConstraints(self, known_numbers: Iterable[Iterable[Optional[int]]]):
+		super(TigerSudoku, self).initConstraints(known_numbers)
 		self.constraints.extend([
 			GermanWhispersLineConstraint(0, 8, 1, 7, 5),
 			GermanWhispersLineConstraint(1, 2, 2, 2, 5),

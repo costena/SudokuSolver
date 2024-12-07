@@ -1,24 +1,33 @@
 from typing import Optional, Callable
 
-ConstraintDrawers = {}
+from Constraints.BlockConstraint import BlockConstraint
+from Constraints.ColumnConstraint import ColumnConstraint
+from Constraints.GermanWhispersLineConstraint import GermanWhispersLineConstraint
+from Constraints.KillerCageConstraint import KillerCageConstraint
+from Constraints.MutexConstraint import MutexConstraint
+from Constraints.NumberConstraint import NumberConstraint
+from Constraints.PossibleNumbersConstraint import PossibleNumbersConstraint
+from Constraints.RowConstraint import RowConstraint
 
+from .RectangleConstraintDrawer import RectangleConstraintDrawer
+from .BlockConstraintDrawer import BlockConstraintDrawer
+from .PossibleNumbersConstraintDrawer import PossibleNumbersConstraintDrawer
+from .NumberConstraintDrawer import NumberConstraintDrawer
+from .KillerCageConstraintDrawer import KillerCageConstraintDrawer
+from .GermanWhispersLineConstraintDrawer import GermanWhispersLineConstraintDrawer
+from .MutexConstraintDrawer import MutexConstraintDrawer
 
-def register_constraint_drawer(constraint_type: type) -> Callable:
-	def wrapper(constraint_drawer_type: type) -> type:
-		ConstraintDrawers[constraint_type] = constraint_drawer_type
-		return constraint_drawer_type
-	
-	return wrapper
+ConstraintDrawers = {
+	ColumnConstraint: RectangleConstraintDrawer,
+	RowConstraint: RectangleConstraintDrawer,
+	BlockConstraint: BlockConstraintDrawer,
+	PossibleNumbersConstraint: PossibleNumbersConstraintDrawer,
+	NumberConstraint: NumberConstraintDrawer,
+	KillerCageConstraint: KillerCageConstraintDrawer,
+	GermanWhispersLineConstraint: GermanWhispersLineConstraintDrawer,
+	MutexConstraint: MutexConstraintDrawer,
+}
 
 
 def getConstraintDrawerType(constraint_type: type) -> Optional[type]:
 	return ConstraintDrawers.get(constraint_type)
-
-
-from . import RowConstraintDrawer
-from . import ColumnConstraintDrawer
-from . import BlockConstraintDrawer
-from . import PossibleNumbersConstraintDrawer
-from . import NumberConstraintDrawer
-from . import KillerCageConstraintDrawer
-from . import GermanWhispersLineConstraintDrawer

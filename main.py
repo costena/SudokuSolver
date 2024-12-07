@@ -3,12 +3,12 @@ from queue import Queue
 from threading import Thread
 
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QPushButton, QVBoxLayout, QCheckBox
 
-from Sudokus.KillerSudoku import KillerSudoku
+from Presets import ZigzagPresets
+from Solvers.DebuggableSudokuSolver import DebuggableSudokuSolver
+from Solvers.SudokuSolver import SudokuSolver
 from Sudokus.Sudoku import Sudoku
-from Sudokus.StandardSudoku import StandardSudoku
-from Sudokus.TigerSudoku import TigerSudoku
 from Widgets.SolvedSudokuWidget import SolvedSudokuWidget
 from Widgets.SudokuWidget import SudokuWidget
 
@@ -40,11 +40,10 @@ def enable_debug():
 
 def main():
 	sudoku = createSudoku()
+	sudoku_solver = createSudokuSolver(sudoku)
 	# print(sudoku.solve())
 
-	sudoku.step_callback = wait_for_next
-
-	thread = Thread(target=sudoku.solve)
+	thread = Thread(target=sudoku_solver.solve)
 	thread.start()
 	
 	app = QApplication(sys.argv)
@@ -55,6 +54,7 @@ def main():
 	layout.addWidget(raw_sudoku_widget)
 	solved_sudoku_widget = SolvedSudokuWidget()
 	solved_sudoku_widget.setSudoku(sudoku)
+	solved_sudoku_widget.setSudokuSolver(sudoku_solver)
 	layout.addWidget(solved_sudoku_widget)
 	h_layout = QVBoxLayout()
 	run_button = QPushButton("Run")
@@ -67,8 +67,18 @@ def main():
 	h_layout.addWidget(pause_button)
 	step_button = QPushButton("Step")
 	step_button.setFixedWidth(64)
-	step_button.clicked.connect(lambda: [in_queue.put(True) for _ in range(1)])
+	step_button.clicked.connect(lambda: in_queue.put(True))
 	h_layout.addWidget(step_button)
+	step10_button = QPushButton("Step10")
+	step10_button.setFixedWidth(64)
+	step10_button.clicked.connect(lambda: [in_queue.put(True) for _ in range(10)])
+	h_layout.addWidget(step10_button)
+	timer_check = QCheckBox("Timer")
+	timer_check.setFixedWidth(64)
+	step_timer = QTimer()
+	step_timer.timeout.connect(lambda: in_queue.put(True))
+	timer_check.stateChanged.connect(lambda: step_timer.start(10) if timer_check.isChecked() else step_timer.stop())
+	h_layout.addWidget(timer_check)
 	layout.addLayout(h_layout)
 	window.setLayout(layout)
 	window.resize(1000, 1000)
@@ -84,53 +94,12 @@ def main():
 
 
 def createSudoku() -> Sudoku:
-	# raw_conundrum = [
-	# 	"5..2...4.",
-	# 	"...6.3...",
-	# 	".3...9..7",
-	# 	"..3..7...",
-	# 	"..7..8...",
-	# 	"6......2.",
-	# 	".8......3",
-	# 	"...4..6..",
-	# 	"...1..5..",
-	# ]
-	# return StandardSudoku([
-	# 	[
-	# 		int(raw_number) if raw_number != '.' else None
-	# 		for raw_number in raw_row
-	# 	]
-	# 	for raw_row in raw_conundrum
-	# ])
+	return ZigzagPresets.get_sudoku(0)
 
-	# return TigerSudoku([])
 
-	# return KillerSudoku([
-	# 	[
-	# 		int(raw_number) if raw_number != '.' else None
-	# 		for raw_number in raw_row
-	# 	]
-	# 	for raw_row in [
-	# 		"86......2",
-	# 		"..3.2..68",
-	# 		"..4....9.",
-	# 		"....64...",
-	# 		".125....4",
-	# 		"749..2..5",
-	# 		".3.8.19..",
-	# 		"..6....51",
-	# 		"98.2....3",
-	# 	]
-	# ])
-	return StandardSudoku([
-		[
-			int(raw_number) if raw_number != '.' else None
-			for raw_number in raw_row
-		]
-		for raw_row in [
-			"." * 9,
-		] * 9
-	])
+def createSudokuSolver(sudoku: Sudoku) -> SudokuSolver:
+	return DebuggableSudokuSolver(sudoku, wait_for_next)
+
 
 
 if __name__ == '__main__':

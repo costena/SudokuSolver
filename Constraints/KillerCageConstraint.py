@@ -27,7 +27,6 @@ class KillerCageConstraint(Constraint):
 		cell_count: int = len(positions)
 		if cell_count == 1:
 			position = positions[0]
-			sudoku.context_constraint = self
 			return sudoku.fill(position[0], position[1], self.summation)
 		for x, y in self.shape.iter_positions():
 			return self.check(x, y, sudoku)
@@ -57,8 +56,6 @@ class KillerCageConstraint(Constraint):
 			max_number = min(9, self.summation - remained_min_summation)
 			min_number = max(1, self.summation - remained_max_summation)
 			for number in itertools.chain(range(1, min_number), range(max_number + 1, 10)):
-				# print(f"eliminate: {self}, {position_x}, {position_y}, {number}")
-				sudoku.context_constraint = self
 				if not sudoku.eliminate(position_x, position_y, number):
 					return False
 		return True

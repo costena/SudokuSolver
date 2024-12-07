@@ -16,8 +16,6 @@ class GermanWhispersLineConstraint(Constraint):
 	def active(self, sudoku: 'Sudoku') -> bool:
 		if self.minimum_differ == 5:
 			for position_x, position_y in self.shape.iter_positions():
-				# print(f"eliminate: {self}, {position_x}, {position_y}, {5}")
-				sudoku.context_constraint = self
 				if not sudoku.eliminate(position_x, position_y, 5):
 					return False
 		return True
@@ -29,8 +27,6 @@ class GermanWhispersLineConstraint(Constraint):
 			possible_numbers = sudoku.ref_possible_numbers(peer_x, peer_y)
 			for n in copy.copy(possible_numbers):
 				if abs(n - number) < self.minimum_differ:
-					# print(f"eliminate: {self}, {peer_x}, {peer_y}, {n}")
-					sudoku.context_constraint = self
 					if not sudoku.eliminate(peer_x, peer_y, n):
 						return False
 		return True
@@ -43,8 +39,6 @@ class GermanWhispersLineConstraint(Constraint):
 			peer_possible_numbers = sudoku.ref_possible_numbers(peer_x, peer_y)
 			for peer_number in copy.copy(peer_possible_numbers):
 				if all(abs(peer_number - possible_number) < self.minimum_differ for possible_number in possible_numbers):
-					# print(f"eliminate: {self}, {peer_x}, {peer_y}, {peer_number}")
-					sudoku.context_constraint = self
 					if not sudoku.eliminate(peer_x, peer_y, peer_number):
 						return False
 		return True

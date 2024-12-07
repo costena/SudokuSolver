@@ -9,8 +9,6 @@ class MutexConstraint(Constraint):
 		if not self.shape.contains_position(x, y):
 			return True
 		for peer_x, peer_y in self.iter_peers(x, y):
-			# print(f"eliminate: {self}, {peer_x}, {peer_y}, {number}")
-			sudoku.context_constraint = self
 			if not sudoku.eliminate(peer_x, peer_y, number):
 				return False
 		return True
@@ -29,7 +27,6 @@ class MutexConstraint(Constraint):
 				break
 		else:
 			if count == 1:
-				sudoku.context_constraint = self
 				if not sudoku.fill(target_x, target_y, number):
 					return False
 		return True
