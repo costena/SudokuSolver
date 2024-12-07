@@ -9,6 +9,7 @@ from Constraints.MutexConstraint import MutexConstraint
 from Constraints.NumberConstraint import NumberConstraint
 from Constraints.PossibleNumbersConstraint import PossibleNumbersConstraint
 from Constraints.RowConstraint import RowConstraint
+from Constraints.WindowBlockConstraint import WindowBlockConstraint
 from .DiagonalConstraintDrawer import DiagonalConstraintDrawer
 from .RectangleConstraintDrawer import RectangleConstraintDrawer
 from .BlockConstraintDrawer import BlockConstraintDrawer
@@ -17,6 +18,7 @@ from .NumberConstraintDrawer import NumberConstraintDrawer
 from .KillerCageConstraintDrawer import KillerCageConstraintDrawer
 from .GermanWhispersLineConstraintDrawer import GermanWhispersLineConstraintDrawer
 from .MutexConstraintDrawer import MutexConstraintDrawer
+from .WindowBlockConstraintDrawer import WindowBlockConstraintDrawer
 
 ConstraintDrawers = {
 	ColumnConstraint: RectangleConstraintDrawer,
@@ -28,6 +30,7 @@ ConstraintDrawers = {
 	GermanWhispersLineConstraint: GermanWhispersLineConstraintDrawer,
 	MutexConstraint: MutexConstraintDrawer,
 	DiagonalConstraint: DiagonalConstraintDrawer,
+	WindowBlockConstraint: WindowBlockConstraintDrawer,
 }
 
 

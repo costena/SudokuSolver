@@ -1,5 +1,7 @@
+from typing import Optional
+
 from PyQt5.QtCore import QRect, Qt
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QPainter, QPen, QBrush
 
 from Constraints.Shapes.Rectangle import Rectangle
 from Widgets.ConstraintDrawers.ConstraintDrawer import ConstraintDrawer
@@ -14,7 +16,7 @@ class RectangleConstraintDrawer(ConstraintDrawer):
 		pen = QPen(Qt.GlobalColor.blue, max(6, rect.width() // 64))
 		return self.paint_internal(painter, rect, pen)
 
-	def paint_internal(self, painter: QPainter, rect: QRect, pen: QPen):
+	def paint_internal(self, painter: QPainter, rect: QRect, pen: QPen, brush: Optional[QBrush]=None):
 		assert isinstance(self.constraint.shape, Rectangle)
 		x = rect.x() + rect.width() * self.constraint.shape.x // 9
 		y = rect.y() + rect.height() * self.constraint.shape.y // 9
@@ -22,6 +24,7 @@ class RectangleConstraintDrawer(ConstraintDrawer):
 		h = rect.height() * (self.constraint.shape.y + self.constraint.shape.h) // 9 - y + rect.y()
 		painter.save()
 		painter.setPen(pen)
-		painter.setBrush(Qt.BrushStyle.NoBrush)
+		if brush is not None:
+			painter.setBrush(brush)
 		painter.drawRect(x, y, w, h)
 		painter.restore()
