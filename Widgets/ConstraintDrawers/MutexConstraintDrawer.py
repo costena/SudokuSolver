@@ -6,5 +6,5 @@ from Widgets.ConstraintDrawers.ShapeConstraintDrawer import ShapeConstraintDrawe
 
 class MutexConstraintDrawer(ShapeConstraintDrawer):
 	def paint(self, painter: QPainter, rect: QRect):
-		pen = QPen(Qt.GlobalColor.black, 3)
+		pen = QPen(Qt.GlobalColor.black, max(3, rect.width() // 128))
 		return self.paint_internal(painter, rect, pen)

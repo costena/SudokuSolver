@@ -13,7 +13,7 @@ class KillerCageConstraintDrawer(ShapeConstraintDrawer):
 		return self.paint_internal(painter, rect, pen, False)
 
 	def special_paint(self, painter: QPainter, rect: QRect):
-		pen = QPen(Qt.GlobalColor.blue, 3)
+		pen = QPen(Qt.GlobalColor.blue, max(6, rect.width() // 64))
 		pen.setStyle(Qt.PenStyle.DashLine)
 		return self.paint_internal(painter, rect, pen, True)
 

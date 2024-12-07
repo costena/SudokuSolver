@@ -6,9 +6,9 @@ from Widgets.ConstraintDrawers.RectangleConstraintDrawer import RectangleConstra
 
 class BlockConstraintDrawer(RectangleConstraintDrawer):
 	def paint(self, painter: QPainter, rect: QRect):
-		pen = QPen(Qt.GlobalColor.black, 3)
+		pen = QPen(Qt.GlobalColor.black, max(3, rect.width() // 128))
 		return self.paint_internal(painter, rect, pen)
 
 	def special_paint(self, painter: QPainter, rect: QRect):
-		pen = QPen(Qt.GlobalColor.blue, 11)
+		pen = QPen(Qt.GlobalColor.blue, max(6, rect.width() // 64))
 		return self.paint_internal(painter, rect, pen)

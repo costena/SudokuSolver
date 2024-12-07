@@ -94,7 +94,7 @@ def main():
 
 
 def createSudoku() -> Sudoku:
-	return ZigzagPresets.get_sudoku(0)
+	return ZigzagPresets.get_sudoku(1)
 
 
 def createSudokuSolver(sudoku: Sudoku) -> SudokuSolver:

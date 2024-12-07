@@ -11,7 +11,7 @@ class RectangleConstraintDrawer(ConstraintDrawer):
 		return self.paint_internal(painter, rect, pen)
 
 	def special_paint(self, painter: QPainter, rect: QRect):
-		pen = QPen(Qt.GlobalColor.blue, 11)
+		pen = QPen(Qt.GlobalColor.blue, max(6, rect.width() // 64))
 		return self.paint_internal(painter, rect, pen)
 
 	def paint_internal(self, painter: QPainter, rect: QRect, pen: QPen):
