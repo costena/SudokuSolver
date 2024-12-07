@@ -2,13 +2,14 @@ from typing import Optional, Callable
 
 from Constraints.BlockConstraint import BlockConstraint
 from Constraints.ColumnConstraint import ColumnConstraint
+from Constraints.DiagonalConstraint import DiagonalConstraint
 from Constraints.GermanWhispersLineConstraint import GermanWhispersLineConstraint
 from Constraints.KillerCageConstraint import KillerCageConstraint
 from Constraints.MutexConstraint import MutexConstraint
 from Constraints.NumberConstraint import NumberConstraint
 from Constraints.PossibleNumbersConstraint import PossibleNumbersConstraint
 from Constraints.RowConstraint import RowConstraint
-
+from .DiagonalConstraintDrawer import DiagonalConstraintDrawer
 from .RectangleConstraintDrawer import RectangleConstraintDrawer
 from .BlockConstraintDrawer import BlockConstraintDrawer
 from .PossibleNumbersConstraintDrawer import PossibleNumbersConstraintDrawer
@@ -26,6 +27,7 @@ ConstraintDrawers = {
 	KillerCageConstraint: KillerCageConstraintDrawer,
 	GermanWhispersLineConstraint: GermanWhispersLineConstraintDrawer,
 	MutexConstraint: MutexConstraintDrawer,
+	DiagonalConstraint: DiagonalConstraintDrawer,
 }
 
 

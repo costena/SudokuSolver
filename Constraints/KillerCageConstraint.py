@@ -4,7 +4,6 @@ import itertools
 from Constraints.Constraint import Constraint
 from Constraints.Shapes.Rectangle import Rectangle
 from Constraints.Shapes.Shape import Shape
-from Constraints.Shapes.SinglePosition import SinglePosition
 
 
 class KillerCageConstraint(Constraint):

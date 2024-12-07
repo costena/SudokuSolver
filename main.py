@@ -5,7 +5,7 @@ from threading import Thread
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QPushButton, QVBoxLayout, QCheckBox
 
-from Presets import ZigzagPresets
+from Presets import ZigzagPresets, DiagonalPresets
 from Solvers.DebuggableSudokuSolver import DebuggableSudokuSolver
 from Solvers.SudokuSolver import SudokuSolver
 from Sudokus.Sudoku import Sudoku
@@ -85,7 +85,7 @@ def main():
 	window.show()
 	timer = QTimer()
 	timer.timeout.connect(lambda: need_update and solved_sudoku_widget.update())
-	timer.start(0)
+	timer.start(1)
 	app.exec()
 	
 	in_queue.put(False)
@@ -94,7 +94,7 @@ def main():
 
 
 def createSudoku() -> Sudoku:
-	return ZigzagPresets.get_sudoku(1)
+	return DiagonalPresets.get_sudoku(0)
 
 
 def createSudokuSolver(sudoku: Sudoku) -> SudokuSolver:
