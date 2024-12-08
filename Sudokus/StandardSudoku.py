@@ -1,6 +1,6 @@
 from typing import Iterable, Optional
 
-from Constraints.BlockConstraint import BlockConstraintFull
+from Constraints.BlockConstraint import BlockConstraint
 from Constraints.ColumnConstraint import ColumnConstraintFull
 from Constraints.NumberConstraint import NumberConstraint
 from Constraints.RowConstraint import RowConstraintFull
@@ -29,4 +29,4 @@ class StandardSudoku(Sudoku):
 		return [ColumnConstraintFull(x) for x in range(9)]
 
 	def createBlockConstraints(self):
-		return [BlockConstraintFull(x, y) for x in range(0, 9, 3) for y in range(0, 9, 3)]
+		return [BlockConstraint(x, y) for x in range(0, 9, 3) for y in range(0, 9, 3)]

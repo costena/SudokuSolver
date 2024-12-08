@@ -30,9 +30,6 @@ class KillerCageConstraint(Constraint):
 		for x, y in self.shape.iter_positions():
 			return self.check(x, y, sudoku)
 		return True
-	
-	def on_number_filled(self, x: int, y: int, number: int, sudoku: 'Sudoku') -> bool:
-		return self.check(x, y, sudoku)
 
 	def on_number_eliminated(self, x: int, y: int, number: int, sudoku: 'Sudoku') -> bool:
 		return self.check(x, y, sudoku)

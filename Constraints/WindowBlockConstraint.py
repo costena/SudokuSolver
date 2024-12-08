@@ -1,5 +1,5 @@
-from Constraints.BlockConstraint import BlockConstraintFull
+from Constraints.BlockConstraint import BlockConstraint
 
 
-class WindowBlockConstraint(BlockConstraintFull):
+class WindowBlockConstraint(BlockConstraint):
     pass

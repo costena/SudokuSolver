@@ -1,6 +1,6 @@
 from typing import Optional, Callable
 
-from Constraints.BlockConstraint import BlockConstraintFull
+from Constraints.BlockConstraint import BlockConstraint
 from Constraints.ColumnConstraint import ColumnConstraintFull
 from Constraints.ContinuousConstraint import ContinuousConstraint
 from Constraints.DiagonalConstraint import DiagonalConstraint
@@ -8,11 +8,13 @@ from Constraints.GermanWhispersLineConstraint import GermanWhispersLineConstrain
 from Constraints.KillerCageConstraint import KillerCageConstraint
 from Constraints.FullMutexConstraint import FullMutexConstraint
 from Constraints.NumberConstraint import NumberConstraint
+from Constraints.PalindromeConstraint import PalindromeConstraint
 from Constraints.PossibleNumbersConstraint import PossibleNumbersConstraint
 from Constraints.RowConstraint import RowConstraintFull
 from Constraints.WindowBlockConstraint import WindowBlockConstraint
 from .ContinuousConstraintDrawer import ContinuousConstraintDrawer
 from .DiagonalConstraintDrawer import DiagonalConstraintDrawer
+from .PalindromeConstraintDrawer import PalindromeConstraintDrawer
 from .RectangleConstraintDrawer import RectangleConstraintDrawer
 from .BlockConstraintDrawer import BlockConstraintDrawer
 from .PossibleNumbersConstraintDrawer import PossibleNumbersConstraintDrawer
@@ -26,7 +28,7 @@ from .WindowBlockConstraintDrawer import WindowBlockConstraintDrawer
 ConstraintDrawers = {
 	ColumnConstraintFull: RectangleConstraintDrawer,
 	RowConstraintFull: RectangleConstraintDrawer,
-	BlockConstraintFull: BlockConstraintDrawer,
+	BlockConstraint: BlockConstraintDrawer,
 	PossibleNumbersConstraint: PossibleNumbersConstraintDrawer,
 	NumberConstraint: NumberConstraintDrawer,
 	KillerCageConstraint: KillerCageConstraintDrawer,
@@ -35,6 +37,7 @@ ConstraintDrawers = {
 	DiagonalConstraint: DiagonalConstraintDrawer,
 	WindowBlockConstraint: WindowBlockConstraintDrawer,
 	ContinuousConstraint: ContinuousConstraintDrawer,
+	PalindromeConstraint: PalindromeConstraintDrawer,
 }
 
 

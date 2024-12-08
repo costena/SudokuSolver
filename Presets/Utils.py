@@ -1,4 +1,4 @@
-from typing import Iterable, List, Dict, Tuple
+from typing import Iterable, List, Dict, Tuple, Set, Optional
 
 from Consts import Down, Right
 from Types import PointType, DirectionType
@@ -129,3 +129,48 @@ def translate_bezel(bezel_texts: Iterable[str]) -> List[BezelType]:
                 case '|':
                     bezels.append(((x - 1, y), Right))
     return bezels
+
+
+def translate_lines(lines_texts: Iterable[str]) -> List[List[PointType]]:
+    lines: List[List[PointType]] = []
+    line_map: Dict[PointType, Optional[List[PointType]]] = {}
+    if lines_texts is None:
+        return lines
+    for y, lines_text in enumerate(lines_texts):
+        for x, lines_char in enumerate(lines_text):
+            position = x, y
+            if position in line_map:
+                continue
+            line_map[position] = None
+            if lines_char == '.':
+                continue
+            current_char = lines_char
+            current_x = x
+            current_y = y
+            line: List[PointType] = [position]
+            line_map[position] = line
+            while current_char != '.':
+                sibling_position: PointType = (0, 0)
+                match current_char:
+                    case '>': sibling_position = (current_x + 1, current_y)
+                    case '|': sibling_position = (current_x, current_y + 1)
+                    case '<': sibling_position = (current_x - 1, current_y)
+                    case '^': sibling_position = (current_x, current_y - 1)
+                    case '/': sibling_position = (current_x - 1, current_y + 1)
+                    case '%': sibling_position = (current_x + 1, current_y - 1)
+                    case '\\': sibling_position = (current_x + 1, current_y + 1)
+                    case '`': sibling_position = (current_x - 1, current_y - 1)
+                sibling_x, sibling_y = sibling_position
+                old_line = line_map.get(sibling_position)
+                if old_line is not None:
+                    line.extend(old_line)
+                    lines.remove(old_line)
+                    break
+                line_map[sibling_position] = line
+                sibling_char = lines_texts[sibling_y][sibling_x]
+                line.append(sibling_position)
+                current_x = sibling_x
+                current_y = sibling_y
+                current_char = sibling_char
+            lines.append(line)
+    return lines
