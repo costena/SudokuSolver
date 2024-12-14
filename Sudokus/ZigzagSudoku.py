@@ -1,10 +1,10 @@
 from typing import Iterable, Optional, List
 
-from Constraints.ColumnConstraint import ColumnConstraintFull
+from Constraints.ColumnConstraint import ColumnConstraint
 from Constraints.Constraint import Constraint
 from Constraints.FullMutexConstraint import FullMutexConstraint
 from Constraints.NumberConstraint import NumberConstraint
-from Constraints.RowConstraint import RowConstraintFull
+from Constraints.RowConstraint import RowConstraint
 from Constraints.Shapes.SinglePosition import SinglePosition
 from Constraints.Shapes.UnionShape import UnionShape
 from Sudokus.Sudoku import Sudoku
@@ -27,10 +27,10 @@ class ZigzagSudoku(Sudoku):
         self.constraints.extend(self.createBlockConstraints(blocks))
 
     def createRowConstraints(self):
-        return [RowConstraintFull(y) for y in range(9)]
+        return [RowConstraint(y) for y in range(9)]
 
     def createColumnConstraints(self):
-        return [ColumnConstraintFull(x) for x in range(9)]
+        return [ColumnConstraint(x) for x in range(9)]
 
     def createBlockConstraints(self, blocks: Iterable[Iterable[PointType]]) -> List[Constraint]:
         constraints = []

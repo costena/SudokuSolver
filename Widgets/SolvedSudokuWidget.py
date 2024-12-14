@@ -24,9 +24,7 @@ class SolvedSudokuWidget(SudokuWidget):
 		painter = QPainter(self)
 		if len(self.sudoku_solver.constraint_contexts) > 0:
 			constraint = self.sudoku_solver.constraint_contexts[-1]
-			constraint_drawer = self.constraint_drawers.get(constraint)
-			if constraint_drawer is not None:
-				constraint_drawer.special_paint(painter, self.canvas_rect)
+			self.sudoku_drawer.special_paint(painter, self.canvas_rect, constraint)
 
 		rect = self.canvas_rect
 		for j in range(9):

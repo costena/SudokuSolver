@@ -5,9 +5,11 @@ from threading import Thread
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QPushButton, QVBoxLayout, QCheckBox
 
-from Presets import ZigzagPresets, DiagonalPresets, WindowPresets, ContinuousPresets, KillerPresets, PalindromePresets
+from Presets import ZigzagPresets, DiagonalPresets, WindowPresets, ContinuousPresets, KillerPresets, PalindromePresets, \
+	BlackoutPresets
 from Solvers.DebuggableSudokuSolver import DebuggableSudokuSolver
 from Solvers.SudokuSolver import SudokuSolver
+from Sudokus.BlackoutSudoku import BlackoutSudoku
 from Sudokus.PalindromeSudoku import PalindromeSudoku
 from Sudokus.Sudoku import Sudoku
 from Widgets.SolvedSudokuWidget import SolvedSudokuWidget
@@ -95,7 +97,7 @@ def main():
 
 
 def createSudoku() -> Sudoku:
-	return PalindromePresets.get_sudoku(2)
+	return BlackoutPresets.get_sudoku(0)
 
 
 def createSudokuSolver(sudoku: Sudoku) -> SudokuSolver:

@@ -1,9 +1,9 @@
 from typing import Iterable, Optional
 
 from Constraints.BlockConstraint import BlockConstraint
-from Constraints.ColumnConstraint import ColumnConstraintFull
+from Constraints.ColumnConstraint import ColumnConstraint
 from Constraints.NumberConstraint import NumberConstraint
-from Constraints.RowConstraint import RowConstraintFull
+from Constraints.RowConstraint import RowConstraint
 from Sudokus.Sudoku import Sudoku
 
 
@@ -23,10 +23,10 @@ class StandardSudoku(Sudoku):
 		self.constraints.extend(self.createBlockConstraints())
 
 	def createRowConstraints(self):
-		return [RowConstraintFull(y) for y in range(9)]
+		return [RowConstraint(y) for y in range(9)]
 
 	def createColumnConstraints(self):
-		return [ColumnConstraintFull(x) for x in range(9)]
+		return [ColumnConstraint(x) for x in range(9)]
 
 	def createBlockConstraints(self):
 		return [BlockConstraint(x, y) for x in range(0, 9, 3) for y in range(0, 9, 3)]
